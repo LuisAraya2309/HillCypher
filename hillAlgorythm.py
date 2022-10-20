@@ -14,7 +14,7 @@ import random
 from sympy import Matrix
 
 #Local imports
-import algorythmUtils
+from algorythmUtils import *
 
 
 #CONSTANTS
@@ -50,11 +50,48 @@ def generateKey(succesionLength : int):
     return keyMatrix
 
 
+#E Algorythm for encrypting the message
+
+def encryptMessage(message : str,succesionLength : int, keyMatrix : np.array):
+    '''
+    '''
+    cVectorsList = []
+    
+    #We have to uppercase the message because of the alphabet
+    message = message.upper()
+
+    #Divide the message in succesionLenth parts
+    dividedMessage = divideInParts(message,succesionLength)
+
+    for chunk in dividedMessage:
+
+        #Generate the columnVector = V
+        splittedChars = list(chunk)
+        columnVector = []
+        for char in splittedChars:
+            columnVector.append(ENCRYPT_ALPHA[char])
+
+        #Generate the CVector
+        columnVector = np.array(columnVector)
+        CVector = np.dot(keyMatrix,columnVector)
+        CPrimeVector = np.mod(CVector,N)
+        cVectorsList.append(CPrimeVector.tolist())
+    
+    #Now we generate the encrypted message by using the decrypt alphabet 
+    encryptedMessage = ""
+    for vector in cVectorsList:
+        for code in vector:
+            encryptedMessage += DECRYPT_ALPHA[str(code)]
+            
+    return encryptedMessage
+
 
 
 
 def main():
-    generateKey(3)
+    M = 3
+    masterKey = generateKey(M)
+    encryptMessage('ABCDEF',M,masterKey)
 
 main()
 
