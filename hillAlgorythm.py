@@ -75,12 +75,15 @@ def encryptMessage(message : str,succesionLength : int, keyMatrix : np.array) ->
 
         #Generate the CVector
         columnVector = np.array(columnVector)
+
+        #Multiply the columnVector and keyMatrix
         CVector = np.dot(keyMatrix,columnVector)
+        #Calculate mod between CVector and N
         CPrimeVector = np.mod(CVector,N)
         cVectorsList.append(CPrimeVector.tolist())
     
     #Now we generate the encrypted message by using the decrypt alphabet 
-    encryptedMessage = translateMessage(DECRYPT_ALPHA,cVectorsList)        
+    encryptedMessage = translateMessage(DECRYPT_ALPHA,cVectorsList)    
     return encryptedMessage
 
 
@@ -104,7 +107,7 @@ def decryptMessage(message : str,succesionLength : int, keyMatrix : np.array)-> 
         columnVector = []
         for char in splittedChars:
             columnVector.append(ENCRYPT_ALPHA[char])
-
+            
         columnVector = np.array(columnVector)
 
         #Now we calculate W Vector multiplying the primeKeyMatrix and columnVector
@@ -118,20 +121,3 @@ def decryptMessage(message : str,succesionLength : int, keyMatrix : np.array)-> 
     #Now we generate the encrypted message by using the decrypt alphabet 
     decryptedMessage = translateMessage(DECRYPT_ALPHA,vVectorsList)
     return decryptedMessage
-        
-
-
-
-def main():
-    M = 3
-    masterKey = generateKey(M)
-    print('Master Key')
-    print(masterKey,'\n\n')
-    encryptedMessage = encryptMessage('ABCDE',M,masterKey)
-    print('Encrypted Message')
-    print(encryptedMessage,"\n\n")
-    decryptMessage(encryptedMessage,M,masterKey)
-
-main()
-
-

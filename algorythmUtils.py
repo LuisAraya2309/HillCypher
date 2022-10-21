@@ -46,6 +46,8 @@ def translateMessage(DECRYPT_ALPHA : dict, matrixVectors : list)-> str:
     return translatedMessage
     
 def MCD(a , b):
+    '''
+    '''
     if b == 0:
         return a
     return MCD(b, a % b)
