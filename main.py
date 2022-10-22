@@ -10,13 +10,10 @@ Rolbin Méndez Brenes
 
 from hillAlgorythm import *
 
-AUTOMATED_MODE = True
-
-
 if __name__ == "__main__":
 
     M = 3
-    messageToEncrypt = 'Criptograma'
+    messageToEncrypt = 'Criptografia es un curso necesario'
     masterKey = generateKey(M)
     encryptedMessage = encryptMessage(messageToEncrypt,M,masterKey)
     decryptMessage = decryptMessage(encryptedMessage,M,masterKey)

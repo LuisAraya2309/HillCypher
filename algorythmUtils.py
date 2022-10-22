@@ -20,6 +20,15 @@ def addPadding(paddingChars : str, neededPadding : int)->str:
 
     return paddingChars
 
+def cleanPadding(dirtyMessage : str) -> str:
+    '''
+    '''
+    CLEANING = True
+    while CLEANING:
+        if dirtyMessage[-1] == " ":
+            dirtyMessage = dirtyMessage[:-1]
+        else:
+            return dirtyMessage
 
 def divideInParts(message : str, chunk : int) -> str:
     '''
@@ -45,9 +54,9 @@ def translateMessage(DECRYPT_ALPHA : dict, matrixVectors : list)-> str:
             
     return translatedMessage
     
-def MCD(a , b):
+def MCD(firstNumber , secondNumber):
     '''
     '''
-    if b == 0:
-        return a
-    return MCD(b, a % b)
+    if secondNumber == 0:
+        return firstNumber
+    return MCD(secondNumber, firstNumber % secondNumber)
